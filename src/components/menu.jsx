@@ -18,7 +18,7 @@ function Menu(){
             <Link to="/commandes" className="text-white text-xl font-extrabold hover:underline">Commandes</Link>
           </li>
           <li>
-            <Link to="/plats" className="text-white text-xl font-extrabold hover:underline">Plats</Link>
+            <Link to="/plat" className="text-white text-xl font-extrabold hover:underline">Plats</Link>
           </li>
         </ul>
       </nav>
