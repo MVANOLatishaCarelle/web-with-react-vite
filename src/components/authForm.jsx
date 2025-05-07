@@ -7,7 +7,8 @@ function AuthForm(){
     const [nom, setNom] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [telephone, setTelephone] = useState("");
+
+    const [phone, setPhone] = useState("");
     const [adresse, setAdresse] = useState("");
     const [horaire, setHoraire] = useState("");
     const [photo, setPhoto] = useState(null);
@@ -19,15 +20,15 @@ function AuthForm(){
     const handleSubmit = async (e) =>{
         e.preventDefault();
 
-        const vendeur = {nom, email, password, telephone, adresse, horaireOuverture: horaire,};
+        const vendeur = {nom, email, password, phone, adresse, horaire,};
 
         try {
             const result = await vendeurAPI.createVendeur(vendeur, photo);
-            setMessage(`Compte créé avec succès !, ${result.nom}`);
+            setMessage(`Compte créé avec succès ! ${result.nom}`);
             setErreur(false);
-            setTimeout(()=> navigate("/"), 2000);
+            navigate("/home");
         } catch (error) {
-            setMessage(`Erreur : ${error.message}`);
+            setMessage(`Message : ${error.message}`);
             setErreur(true);
         }
     }
@@ -59,10 +60,10 @@ function AuthForm(){
                     value={password} onChange={(e)=> setPassword(e.target.value)}
                 />
                 <input
-                    type="phone"
+                    type="tel"
                     placeholder="Telephone"
                     className="border rounded-lg px-4 py-2 focus:outline-none w-full"
-                    value={telephone} onChange={(e)=> setTelephone(e.target.value)}
+                    value={phone} onChange={(e)=> setPhone(e.target.value)}
                 />
                 <input
                     type="text"
@@ -90,6 +91,11 @@ function AuthForm(){
                 </button>
                 {/* <Link to="/" className="text-sm text-sand p-20 hover:underline">Tu as déjà un compte?</Link> */}
             </form>
+            <div className="mt-4 text-center">
+                <Link to="/" className="text-sm text-sand hover:underline">
+                    Tu as déjà un compte?
+                </Link>
+            </div>
             </div>
             </div>
     );
