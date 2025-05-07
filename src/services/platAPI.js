@@ -23,4 +23,28 @@ export const platAPI = {
         if(!response.ok) throw new Error("Erreur lors du chargement des plats du vendeur");
         return response.json();
     },
+
+    async updatePlat(id, platJson, photoFile){
+        const formData = new FormData();
+        formData.append('plat', JSON.stringify(platJson));
+        if(photoFile){
+            formData.append('photo', photoFile);
+        }
+        
+        const response = await fetch(`${API_URL}/${id}`,{
+            method:'PATCH',
+            body: formData,
+            credentials: 'include',
+        });
+        if(!response.ok) throw new Error("Erreur lors de la creation");
+        return response.json();
+    },
+
+    async deletePlat(id){
+        const response = await fetch(`${API_URL}/${id}`,{
+            method: 'DELETE',
+            credentials: 'include',
+        })
+        if(!response.ok) throw new Error("Erreur lors de la suppression du plat");
+    },
 };
