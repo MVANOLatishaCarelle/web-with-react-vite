@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { vendeurAPI } from "../services/vendeurAPI";
 
 function AuthForm(){
@@ -14,6 +15,7 @@ function AuthForm(){
     const [message, setMessage] = useState(null);
     const [erreur, setErreur] = useState(false)
 
+    const navigate = useNavigate();
     const handleSubmit = async (e) =>{
         e.preventDefault();
 
@@ -23,6 +25,7 @@ function AuthForm(){
             const result = await vendeurAPI.createVendeur(vendeur, photo);
             setMessage(`Compte créé avec succès !, ${result.nom}`);
             setErreur(false);
+            setTimeout(()=> navigate("/"), 2000);
         } catch (error) {
             setMessage(`Erreur : ${error.message}`);
             setErreur(true);
@@ -85,7 +88,7 @@ function AuthForm(){
                 >
                 Connexion
                 </button>
-                <Link to="/" className="text-sm text-sand p-20 hover:underline">Tu as déjà un compte?</Link>
+                {/* <Link to="/" className="text-sm text-sand p-20 hover:underline">Tu as déjà un compte?</Link> */}
             </form>
             </div>
             </div>

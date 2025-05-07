@@ -11,7 +11,10 @@ export const vendeurAPI = {
             body: formData,
         });
 
-        if(!response.ok) throw new Error("Erreur lord de la creation");
+        if(!response.ok){
+            const errorMessage = await response.text();
+            throw new Error(errorMessage || "Erreur lors de la creation");
+        }
         return response.json();
     }
 };
