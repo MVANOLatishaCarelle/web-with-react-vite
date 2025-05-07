@@ -1,6 +1,7 @@
 import Notifications from "./notif";
 import Menu from "./menu";
 import { useState } from "react";
+import platAPI from "../services/platAPI";
 
 function PlatPage(){
     const [isEditing] = useState(false);

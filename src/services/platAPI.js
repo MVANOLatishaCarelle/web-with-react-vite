@@ -1,0 +1,26 @@
+const API_URL = 'http://localhost:8080/plat';
+
+export const platAPI = {
+    async createPlat(platJson, photoFile){
+        const formData = new FormData();
+        formData.append('plat', JSON.stringify(platJson));
+        formData.append('photo', photoFile);
+
+        const response = await fetch(`${API_URL}`,{
+            method:'POST',
+            body: formData,
+            credentials: 'include',
+        });
+        if(!response.ok) throw new Error("Erreur lors de la creation");
+        return response.json();
+    },
+
+    async getPlat(){
+        const response = await fetch(`${API_URL}/mes-plats`,{
+            method: 'GET',
+            credentials: 'include',
+        })
+        if(!response.ok) throw new Error("Erreur lors du chargement des plats du vendeur");
+        return response.json();
+    },
+};
