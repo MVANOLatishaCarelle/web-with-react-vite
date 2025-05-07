@@ -2,19 +2,24 @@ import plats from "../Photos/plats.jpg";
 import {Link} from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { vendeurAPI } from "../services/vendeurAPI";
 
 function AuthPage(){
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [erreur, setErreur] = useState(null);
 
-    const handleSubmit = (e) =>{
+    const handleLogin = async (e) =>{
         e.preventDefault(); // empêcher le rechargement de la page
 
-        if(email == "test@gmail.com" && password == "test"){
-            navigate("/home");
-        }else{
-            alert("Utilisateur ou Mot de passe incorrect");
+        const vendeur = {email, password};
+        try {
+            const token = await vendeurAPI.authentication(vendeur);
+            localStorage.setItem('Token', token);
+            navigate('/home');
+        } catch (error) {
+            setErreur(error.message);
         }
     };
 
@@ -39,17 +44,18 @@ function AuthPage(){
                     </h1>
                     {/* <p className="text-sm text-gray-600 mb-6"> Nous sommes heureux de vous revoir. </p> */}
 
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleLogin} className="space-y-4">
+                        {erreur && <div className="text-red-600">{erreur}</div>}
                         <input
                             type="email"
                             placeholder="Email"
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={email} onChange={(e) => setEmail(e.target.value)}
                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sand"
                         />
                         <input
                             type="password"
                             placeholder="Password"
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={password} onChange={(e) => setPassword(e.target.value)}
                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sand"
                         />
                         <button

@@ -16,5 +16,18 @@ export const vendeurAPI = {
             throw new Error(errorMessage || "Erreur lors de la creation");
         }
         return response.json();
-    }
+    },
+
+    async authentication(vendeur){
+        const response = await fetch(`${API_URL}/auth`,{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(vendeur),
+        });
+        const data = await response.json();
+        if(!response.ok){
+            throw new Error(data.error || "Échec de l'authentification");
+        }
+        return data.token;
+    },
 };
