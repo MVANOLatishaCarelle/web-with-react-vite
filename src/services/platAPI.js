@@ -1,7 +1,11 @@
 const API_URL = 'http://localhost:8080/plat';
 
 export const platAPI = {
-    async createPlat(platJson, photoFile, token){
+    async createPlat(platJson, photoFile){
+        const token = localStorage.getItem("token");
+        if(!token){
+            throw new Error("Le token est manquant. Vous devez être connecté.");
+        }
         const formData = new FormData();
         formData.append('plat', JSON.stringify(platJson));
         formData.append('photo', photoFile);

@@ -42,12 +42,7 @@ function PlatPage(){
             disponible: formData.disponible
         }));
         form.append("photo", formData.photo);
-
-        const token = localStorage.getItem("token");
-        if(!token){
-            alert("Vous devez être connecté pour créer un plat");
-            return;
-        }
+        
         try {
             if(isEditing){
             await platAPI.updatePlat(editPlatId, form);

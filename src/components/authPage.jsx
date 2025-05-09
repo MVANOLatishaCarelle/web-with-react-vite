@@ -17,6 +17,10 @@ function AuthPage(){
         try {
             const token = await vendeurAPI.authentication(vendeur);
             localStorage.setItem('Token', token);
+            if(!token){
+                alert("Vous devez être connecté pour créer un plat");
+                return;
+            }
             navigate('/home');
         } catch (error) {
             setErreur(error.message);
