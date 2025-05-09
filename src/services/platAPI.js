@@ -22,15 +22,25 @@ export const platAPI = {
     },
 
     async getPlat(){
+        const token = localStorage.getItem("token");
+        if(!token){
+            throw new Error("Le token est manquant. Vous devez être connecté.");
+        }
         const response = await fetch(`${API_URL}/mes-plats`,{
             method: 'GET',
-            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer${token}`,
+            },
         })
         if(!response.ok) throw new Error("Erreur lors du chargement des plats du vendeur");
         return response.json();
     },
 
     async updatePlat(id, platJson, photoFile){
+        const token = localStorage.getItem("token");
+        if(!token){
+            throw new Error("Le token est manquant. Vous devez être connecté.");
+        }
         const formData = new FormData();
         formData.append('plat', JSON.stringify(platJson));
         if(photoFile){
@@ -40,16 +50,24 @@ export const platAPI = {
         const response = await fetch(`${API_URL}/${id}`,{
             method:'PATCH',
             body: formData,
-            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer${token}`,
+            },
         });
         if(!response.ok) throw new Error("Erreur lors de la creation");
         return response.json();
     },
 
     async deletePlat(id){
+        const token = localStorage.getItem("token");
+        if(!token){
+            throw new Error("Le token est manquant. Vous devez être connecté.");
+        }
         const response = await fetch(`${API_URL}/${id}`,{
             method: 'DELETE',
-            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer${token}`,
+            },
         })
         if(!response.ok) throw new Error("Erreur lors de la suppression du plat");
     },

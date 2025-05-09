@@ -16,7 +16,7 @@ function AuthPage(){
         const vendeur = {email, password};
         try {
             const token = await vendeurAPI.authentication(vendeur);
-            localStorage.setItem('Token', token);
+            localStorage.setItem('token', token);
             if(!token){
                 alert("Vous devez être connecté pour créer un plat");
                 return;

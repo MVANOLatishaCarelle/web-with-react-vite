@@ -34,20 +34,20 @@ function PlatPage(){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const form = new FormData();
-        form.append("plat", JSON.stringify({
+        const platJson = {
             nom: formData.nom,
             description: formData.description,
             prix: formData.prix,
             disponible: formData.disponible
-        }));
-        form.append("photo", formData.photo);
-        
+        };
+
+        const photoFile = formData.photo;
+
         try {
             if(isEditing){
-            await platAPI.updatePlat(editPlatId, form);
+            await platAPI.updatePlat(editPlatId, platJson);
         }else{
-            await platAPI.createPlat(form);
+            await platAPI.createPlat(platJson, photoFile);
         }
         setShowForm(false);
         setFormData({nom: "", description: "", prix: "", photo: null, disponible: true});
