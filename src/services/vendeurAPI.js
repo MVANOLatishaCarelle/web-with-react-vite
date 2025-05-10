@@ -18,11 +18,11 @@ export const vendeurAPI = {
         return response.json();
     },
 
-    async authentication(vendeur){
+    async authentication(email, password){
         const response = await fetch(`${API_URL}/auth`,{
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(vendeur),
+            body: JSON.stringify({email, password}),
         });
         const data = await response.json();
         if(!response.ok){

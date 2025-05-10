@@ -13,9 +13,8 @@ function AuthPage(){
     const handleLogin = async (e) =>{
         e.preventDefault(); // empêcher le rechargement de la page
 
-        const vendeur = {email, password};
         try {
-            const token = await vendeurAPI.authentication(vendeur);
+            const token = await vendeurAPI.authentication(email, password);
             localStorage.setItem('token', token);
             if(!token){
                 alert("Vous devez être connecté pour créer un plat");

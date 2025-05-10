@@ -7,7 +7,6 @@ function AuthForm(){
     const [nom, setNom] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const [phone, setPhone] = useState("");
     const [adresse, setAdresse] = useState("");
     const [horaire, setHoraire] = useState("");
@@ -15,11 +14,10 @@ function AuthForm(){
 
     const [message, setMessage] = useState(null);
     const [erreur, setErreur] = useState(false)
-
     const navigate = useNavigate();
+
     const handleSubmit = async (e) =>{
         e.preventDefault();
-
         const vendeur = {nom, email, password, phone, adresse, horaire,};
 
         try {
