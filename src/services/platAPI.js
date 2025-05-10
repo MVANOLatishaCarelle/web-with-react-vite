@@ -14,7 +14,7 @@ export const platAPI = {
             method:'POST',
             body: formData,
             headers: {
-                'Authorization': `Bearer${token}`,
+                'Authorization': `Bearer ${token}`,
             },
         });
         if(!response.ok) throw new Error("Erreur lors de la creation");
@@ -26,10 +26,14 @@ export const platAPI = {
         if(!token){
             throw new Error("Le token est manquant. Vous devez être connecté.");
         }
+        const formData = new FormData();
+        formData.append("plat", JSON.stringify(platJson));
+        formData.append("photo", photoFile);
         const response = await fetch(`${API_URL}/mes-plats`,{
             method: 'GET',
+            body: 
             headers: {
-                'Authorization': `Bearer${token}`,
+                'Authorization': `Bearer ${token}`,
             },
         })
         if(!response.ok) throw new Error("Erreur lors du chargement des plats du vendeur");
@@ -51,7 +55,7 @@ export const platAPI = {
             method:'PATCH',
             body: formData,
             headers: {
-                'Authorization': `Bearer${token}`,
+                'Authorization': `Bearer ${token}`,
             },
         });
         if(!response.ok) throw new Error("Erreur lors de la creation");
@@ -66,7 +70,7 @@ export const platAPI = {
         const response = await fetch(`${API_URL}/${id}`,{
             method: 'DELETE',
             headers: {
-                'Authorization': `Bearer${token}`,
+                'Authorization': `Bearer ${token}`,
             },
         })
         if(!response.ok) throw new Error("Erreur lors de la suppression du plat");
