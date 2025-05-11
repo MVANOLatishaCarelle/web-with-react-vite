@@ -45,7 +45,7 @@ function PlatPage(){
 
         try {
             if(isEditing){
-            await platAPI.updatePlat(editPlatId, platJson);
+            await platAPI.updatePlat(editPlatId, platJson, photoFile);
         }else{
             await platAPI.createPlat(platJson, photoFile);
         }
@@ -74,7 +74,7 @@ function PlatPage(){
 
     const handleDelete = async (id) => {
         await platAPI.deletePlat(id);
-        fetchPlats;
+        fetchPlats();
     }
     return (
         <div className="min-h-screen flex">
@@ -171,7 +171,7 @@ function PlatPage(){
             {plats.map((plat) => (
               <li key={plat.id} className="border rounded-lg shadow flex items-center bg-white overflow-hidden">
                 <img
-                  src={plat.photoUrl}
+                  src={plat.photo}
                   alt={plat.nom}
                   className="w-32 h-32 object-cover"
                 />

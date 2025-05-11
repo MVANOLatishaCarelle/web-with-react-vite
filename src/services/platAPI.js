@@ -26,12 +26,8 @@ export const platAPI = {
         if(!token){
             throw new Error("Le token est manquant. Vous devez être connecté.");
         }
-        const formData = new FormData();
-        formData.append("plat", JSON.stringify(platJson));
-        formData.append("photo", photoFile);
         const response = await fetch(`${API_URL}/mes-plats`,{
             method: 'GET',
-            body: 
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
