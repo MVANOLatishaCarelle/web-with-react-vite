@@ -15,6 +15,7 @@ function PlatPage(){
         disponible: true
     });
     const [editPlatId, setEditPlatId] = useState(null);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(()=> {
         fetchPlats();
@@ -73,8 +74,28 @@ function PlatPage(){
     };
 
     const handleDelete = async (id) => {
-        await platAPI.deletePlat(id);
+        const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer ce plat ?");
+        if(!confirmDelete) return;
+        try {
+            await platAPI.deletePlat(id);
         fetchPlats();
+        } catch (error) {
+            alert("Erreur lors de la suppression.", error);
+        }
+        
+    }
+
+    const handleSearch = async () =>{
+        try {
+            if(searchTerm.trim() === ""){
+                fetchPlats();
+            }else{
+                const data = await platAPI.getPlayByMotCle(searchTerm);
+                setPlats(data);
+            }
+        } catch (error) {
+            alert("Erreur lors de la recherche du plat.", error);
+        }
     }
     return (
         <div className="min-h-screen flex">
@@ -166,9 +187,24 @@ function PlatPage(){
             </form>
         )}
         
+        <div className="mb-6 flex items-center gap-4 w-fit ml-auto">
+            <input
+                type="text"
+                placeholder="Recherche un plat"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+            />
+            <button
+                onClick={handleSearch}
+                className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-900 transition"
+            >
+                Recherche
+            </button>
+        </div>
 
-        <ul className="space-y-4">
-            {plats.map((plat) => (
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {Array.isArray(plats) && plats.map((plat) => (
               <li key={plat.id} className="border rounded-lg shadow flex items-center bg-white overflow-hidden">
                 <img
                   src={plat.photo}
@@ -178,19 +214,19 @@ function PlatPage(){
                 <div className="flex-1 px-4 py-2">
                   <h2 className="text-2xl font-bold text-gray-800 mb-1">{plat.nom}</h2>
                   <p className="text-gray-600 mb-1">{plat.description}</p>
-                  <p className="text-green-700 font-semibold">Prix : {plat.prix} €</p>
+                  <p className="text-green-700 font-semibold">Prix : {plat.prix} FBu</p>
                   {!plat.disponible && <p className="text-red-600">Indisponible</p>}
                 </div>
                 <div className="flex flex-col space-y-2 px-4">
                   <button
                     onClick={() => handleEdit(plat)}
-                    className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded"
+                    className="bg-stone-600 hover:bg-stone-900 text-white px-2 py-1 rounded"
                   >
                     Modifier
                   </button>
                   <button
                     onClick={() => handleDelete(plat.id)}
-                    className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+                    className="bg-red-800 hover:bg-red-700 text-white px-2 py-1 rounded"
                   >
                     Supprimer
                   </button>

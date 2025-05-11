@@ -36,6 +36,21 @@ export const platAPI = {
         return response.json();
     },
 
+    async getPlayByMotCle(motCle){
+        const token = localStorage.getItem("token");
+        if(!token){
+            throw new Error("Le token est manquant. Vous devez être connecté.");
+        }
+        const response = await fetch(`${API_URL}/mes-plats/recherche?motCle=${encodeURIComponent(motCle)}`, {
+            method: 'GET',
+            headers:{
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+        if(!response) throw new Error("Erreur lors du chargement du plat");
+        return response.json();
+    },
+
     async updatePlat(id, platJson, photoFile){
         const token = localStorage.getItem("token");
         if(!token){
@@ -48,7 +63,7 @@ export const platAPI = {
         }
         
         const response = await fetch(`${API_URL}/${id}`,{
-            method:'PATCH',
+            method:'PUT',
             body: formData,
             headers: {
                 'Authorization': `Bearer ${token}`,
