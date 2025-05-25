@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8080/vendeur';
+const API_URL = 'http://localhost:8080/api/vendeur';
 
 export const vendeurAPI = {
     async createVendeur(vendeurJson, photoFile) {

@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8080/plat';
+const API_URL = 'http://localhost:8080/api/plat';
 
 export const platAPI = {
     async createPlat(platJson, photoFile){

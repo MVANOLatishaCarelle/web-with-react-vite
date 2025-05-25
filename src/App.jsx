@@ -2,8 +2,9 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import AuthPage from "./components/authPage";
 import AuthForm from "./components/authForm";
 import HomePage from './components/homePage';
-import Commande from "./components/commandeDetail";
+import Commande from "./components/commande";
 import PlatPage from './components/platPage';
+
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Route path="/" element={<AuthPage/>}/>
         <Route path="/auth" element={<AuthForm/>}/>
         <Route path="/home" element={<HomePage/>}/>
-        <Route path='/commande' element={<Commande/>}/>
+        <Route path='/commande/:orderId' element={<Commande/>}/>
         <Route path='/plat' element={<PlatPage/>}/>
       </Routes>
     </Router>

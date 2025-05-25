@@ -12,13 +12,16 @@ function Menu(){
       >
         <ul className="flex space-x-8 bg-black/50 p-4 rounded-lg">
           <li>
-            <Link to="/vendeur" className="text-white text-xl font-extrabold hover:underline">Info du vendeur </Link>
+            <Link to="/vendeur" className="text-white text-xl font-extrabold hover:underline">Accueil </Link>
           </li>
           <li>
-            <Link to="/commandes" className="text-white text-xl font-extrabold hover:underline">Commandes</Link>
+            <Link to="/commande" className="text-white text-xl font-extrabold hover:underline">Commandes</Link>
           </li>
           <li>
-            <Link to="/plat" className="text-white text-xl font-extrabold hover:underline">Plats</Link>
+            <Link to="/plat" className="text-white text-xl font-extrabold hover:underline">Menu</Link>
+          </li>
+          <li>
+            <Link to="/plat" className="text-white text-xl font-extrabold hover:underline">Profil</Link>
           </li>
         </ul>
       </nav>
