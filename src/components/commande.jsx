@@ -13,9 +13,7 @@ const CommandeDetail = () => {
   // Status options for dropdown
   const statusOptions = [
     { value: 'En_attente', label: 'En attente' },
-    { value: 'En_preparation', label: 'En préparation' },
     { value: 'En_livraison', label: 'En livraison' },
-    { value: 'Livre', label: 'Livré' },
     { value: 'Annule', label: 'Annulé' }
   ];
 
